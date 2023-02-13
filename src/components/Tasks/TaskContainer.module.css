@@ -1,0 +1,27 @@
+.task-container {
+	border-radius: 8px;
+}
+
+.green {
+	grid-column: 2/7;
+	grid-row: 2/7;
+	background: #98ff67;
+}
+
+.blue {
+	grid-column: 7/12;
+	grid-row: 2/7;
+	background: #a9f5ff;
+}
+
+.orange {
+	grid-column: 2/7;
+	grid-row: 7/12;
+	background: #ffcc80;
+}
+
+.red {
+	grid-column: 7/12;
+	grid-row: 7/12;
+	background: #ff6565;
+}

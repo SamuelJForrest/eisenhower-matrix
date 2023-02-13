@@ -1,0 +1,14 @@
+header {
+	padding: 15px 30px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	max-width: 100%;
+	margin-bottom: 32px;
+}
+
+h1 {
+	text-transform: uppercase;
+	font-weight: 900;
+	line-height: 1;
+}
