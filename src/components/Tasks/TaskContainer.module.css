@@ -1,5 +1,6 @@
 .task-container {
 	border-radius: 8px;
+	overflow: auto;
 }
 
 .green {

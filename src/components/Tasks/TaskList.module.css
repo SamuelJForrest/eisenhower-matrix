@@ -1,0 +1,37 @@
+.task-list {
+	padding: 15px 20px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+	flex-wrap: wrap;
+	gap: 8px;
+	overflow: auto;
+}
+
+.green button,
+.blue button,
+.orange button,
+.red button {
+	border: none;
+	padding: 10px 20px;
+	border-radius: 8px;
+	color: #fff;
+	font-family: "Inter", sans-serif !important;
+	font-weight: 600;
+}
+
+.green button {
+	background: #5ff11a;
+}
+
+.blue button {
+	background: #69e7f9;
+}
+
+.orange button {
+	background: #f2ae47;
+}
+
+.red button {
+	background: #ff1e1e;
+}

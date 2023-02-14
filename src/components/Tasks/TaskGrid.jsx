@@ -5,15 +5,46 @@ import TaskContainer from "./TaskContainer";
 
 const TaskGrid = (props) => {
 	const gridContainerInfo = [
-		{ title: "Do", color: "green" },
-		{ title: "Decide", color: "blue" },
-		{ title: "Delegate", color: "orange" },
-		{ title: "Delete", color: "red" },
+		{
+			id: 0,
+			title: "Do",
+			color: "green",
+			urgent: true,
+			important: true,
+		},
+		{
+			id: 1,
+			title: "Decide",
+			color: "blue",
+			urgent: false,
+			important: true,
+		},
+		{
+			id: 2,
+			title: "Delegate",
+			color: "orange",
+			urgent: true,
+			important: false,
+		},
+		{
+			id: 3,
+			title: "Delete",
+			color: "red",
+			urgent: false,
+			important: false,
+		},
 	];
 
 	const taskContainers = gridContainerInfo.map((container) => {
 		return (
-			<TaskContainer color={container.color} title={container.title} />
+			<TaskContainer
+				key={container.id}
+				color={container.color}
+				title={container.title}
+				urgentFilter={container.urgent}
+				importantFilter={container.important}
+				list={props.taskList}
+			/>
 		);
 	});
 
