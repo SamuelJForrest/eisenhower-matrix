@@ -9,6 +9,7 @@ const Input = (props) => {
 				{props.name}
 			</label>
 			<input
+				ref={props.valueRef}
 				className={styles["form-input"]}
 				type={props.inputType}
 				name={props.name}

@@ -17,11 +17,17 @@
 	border-radius: 8px;
 	color: #fff;
 	font-family: "Inter", sans-serif !important;
-	font-weight: 600;
+	font-weight: 500;
+	font-size: 16px;
 }
 
 .green button {
 	background: #5ff11a;
+}
+
+.green button:hover,
+.green button:focus {
+	background: #48bc13;
 }
 
 .blue button {

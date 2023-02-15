@@ -1,45 +1,36 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useRef } from "react";
 import { createPortal } from "react-dom";
 import TaskGrid from "./components/Tasks/TaskGrid";
 import Header from "./components/UI/Header";
 import Modal from "./components/UI/Modal";
 import TaskForm from "./components/Tasks/TaskForm";
 
-const DUMMY_DATA = [
-	{
-		id: 1,
-		title: "Test task",
-		urgent: true,
-		important: true,
-	},
-	{
-		id: 2,
-		title: "Another task",
-		urgent: false,
-		important: true,
-	},
-	{
-		id: 3,
-		title: "A third task",
-		urgent: false,
-		important: false,
-	},
-	{
-		id: 4,
-		title: "A final task",
-		urgent: true,
-		important: false,
-	},
-];
-
 function App() {
 	const [tasks, setTasks] = useState([]);
 	const [modal, setModal] = useState(false);
+
+	const taskNameInput = useRef(null);
+	const urgentInput = useRef(null);
+	const importantInput = useRef(null);
 
 	const toggleModal = () => {
 		setModal((prevState) => {
 			return !prevState;
 		});
+	};
+
+	const formSubmitHandler = (e) => {
+		e.preventDefault();
+
+		tasks.push({
+			// @TODO: Update id generating logic
+			id: tasks.length + 1,
+			title: taskNameInput.current.value,
+			urgent: urgentInput.current.checked,
+			important: importantInput.current.checked,
+		});
+
+		setModal(false);
 	};
 
 	return (
@@ -51,7 +42,12 @@ function App() {
 			{modal &&
 				createPortal(
 					<Modal modalToggle={toggleModal}>
-						<TaskForm />
+						<TaskForm
+							submitHandler={formSubmitHandler}
+							nameRef={taskNameInput}
+							urgentRef={urgentInput}
+							importantRef={importantInput}
+						/>
 					</Modal>,
 					document.getElementById("overlay")
 				)}
