@@ -22,6 +22,8 @@ function App() {
 	const formSubmitHandler = (e) => {
 		e.preventDefault();
 
+		// @TODO: Add form validation logic (for text input)
+
 		tasks.push({
 			// @TODO: Update id generating logic
 			id: tasks.length + 1,
