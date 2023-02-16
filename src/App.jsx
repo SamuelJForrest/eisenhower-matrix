@@ -1,5 +1,7 @@
 import { Fragment, useState, useRef } from "react";
 import { createPortal } from "react-dom";
+import uuid from "react-uuid";
+
 import TaskGrid from "./components/Tasks/TaskGrid";
 import Header from "./components/UI/Header";
 import Modal from "./components/UI/Modal";
@@ -19,14 +21,27 @@ function App() {
 		});
 	};
 
+	const editingMode = (e) => {
+		const currentTask = e.target;
+		const currentID = currentTask.getAttribute("id");
+
+		tasks.forEach((task) => {
+			// @TODO: Set up editing task functionality
+			if (task.id === currentID) {
+				console.log(task);
+			}
+		});
+
+		toggleModal();
+	};
+
 	const formSubmitHandler = (e) => {
 		e.preventDefault();
 
 		// @TODO: Add form validation logic (for text input)
 
 		tasks.push({
-			// @TODO: Update id generating logic
-			id: tasks.length + 1,
+			id: uuid(),
 			title: taskNameInput.current.value,
 			urgent: urgentInput.current.checked,
 			important: importantInput.current.checked,
@@ -39,7 +54,7 @@ function App() {
 		<Fragment>
 			<Header modalToggle={toggleModal} />
 			<main>
-				<TaskGrid taskList={tasks} />
+				<TaskGrid taskList={tasks} editingMode={editingMode} />
 			</main>
 			{modal &&
 				createPortal(

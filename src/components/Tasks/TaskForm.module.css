@@ -16,4 +16,13 @@
 	border: 1px solid #000;
 	border-radius: 4px;
 	margin-top: 16px;
+	padding: 10px 15px;
+	background: rgba(0, 0, 0, 0);
+	transition: all 0.3s;
+}
+
+.task-form-submit:hover,
+.task-form-submit:focus {
+	background: rgba(0, 0, 0, 0.4);
+	color: #fff;
 }

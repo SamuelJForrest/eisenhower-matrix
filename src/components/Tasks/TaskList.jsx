@@ -11,7 +11,11 @@ const TaskList = (props) => {
 	});
 
 	const listOfTasks = filteredTaskLists.map((task) => {
-		return <button key={task.id}>{task.title}</button>;
+		return (
+			<button key={task.id} id={task.id} onClick={props.editingMode}>
+				{task.title}
+			</button>
+		);
 	});
 
 	return <div className={taskListClasses}>{listOfTasks}</div>;

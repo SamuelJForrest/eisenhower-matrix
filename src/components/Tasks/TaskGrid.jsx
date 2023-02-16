@@ -44,6 +44,7 @@ const TaskGrid = (props) => {
 				urgentFilter={container.urgent}
 				importantFilter={container.important}
 				list={props.taskList}
+				editingMode={props.editingMode}
 			/>
 		);
 	});

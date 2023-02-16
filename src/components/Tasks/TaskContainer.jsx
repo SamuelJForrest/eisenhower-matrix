@@ -16,6 +16,7 @@ const TaskContainer = (props) => {
 				list={props.list}
 				urgentFilter={props.urgentFilter}
 				importantFilter={props.importantFilter}
+				editingMode={props.editingMode}
 			/>
 		</div>
 	);
