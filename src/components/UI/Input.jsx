@@ -9,11 +9,14 @@ const Input = (props) => {
 				{props.name}
 			</label>
 			<input
+				onChange={props.errorMessageHandler}
 				ref={props.valueRef}
 				className={styles["form-input"]}
 				type={props.inputType}
 				name={props.name}
 				id={props.name}
+				value={props.value}
+				checked={props.isChecked}
 			/>
 		</Fragment>
 	);

@@ -4,27 +4,83 @@ import styles from "./TaskForm.module.css";
 import Input from "../UI/Input";
 
 const TaskForm = (props) => {
+	const {
+		importantRef,
+		nameRef,
+		setTaskValues,
+		submitHandler,
+		taskNameError,
+		taskValues,
+		updateForm,
+		urgentRef,
+	} = props;
+
+	const updateFormState = (event) => {
+		if (event.target.value) {
+			props.taskNameErrorUpdater(false);
+		}
+
+		switch (event.target.id) {
+			case "taskName":
+				setTaskValues((prev) => {
+					return {
+						...prev,
+						title: event.target.value,
+					};
+				});
+				break;
+			case "Urgent":
+				setTaskValues((prev) => {
+					return {
+						...prev,
+						urgent: event.target.checked,
+					};
+				});
+				break;
+			case "Important":
+				setTaskValues((prev) => {
+					return {
+						...prev,
+						important: event.target.checked,
+					};
+				});
+		}
+
+		console.log(event.target.value, event.target.checked);
+	};
+
 	return (
 		<Fragment>
 			<h2 className={styles["task-form-title"]}>New task</h2>
-			<form
-				className={styles["task-form"]}
-				onSubmit={props.submitHandler}
-			>
+			<form className={styles["task-form"]} onSubmit={submitHandler}>
 				<Input
-					name="Task name"
+					name="taskName"
 					inputType="text"
-					valueRef={props.nameRef}
+					valueRef={nameRef}
+					errorMessageHandler={updateFormState}
+					value={taskValues.title}
+					updateForm={updateForm}
 				/>
+				{taskNameError && (
+					<p className={styles["task-form-error"]}>
+						Fill out this field, doofus.
+					</p>
+				)}
 				<Input
 					name="Urgent"
 					inputType="checkbox"
-					valueRef={props.urgentRef}
+					valueRef={urgentRef}
+					isChecked={taskValues.urgent}
+					errorMessageHandler={updateFormState}
+					updateForm={updateForm}
 				/>
 				<Input
 					name="Important"
 					inputType="checkbox"
-					valueRef={props.importantRef}
+					valueRef={importantRef}
+					isChecked={taskValues.important}
+					errorMessageHandler={updateFormState}
+					updateForm={updateForm}
 				/>
 				<button className={styles["task-form-submit"]}>Submit</button>
 			</form>

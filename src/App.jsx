@@ -10,6 +10,14 @@ import TaskForm from "./components/Tasks/TaskForm";
 function App() {
 	const [tasks, setTasks] = useState([]);
 	const [modal, setModal] = useState(false);
+	const [taskNameHasError, setTaskNameHasError] = useState(false);
+	const [taskValues, setTaskValues] = useState({
+		id: "",
+		title: "",
+		urgent: false,
+		important: false,
+	});
+	const [currentlyEditing, setCurrentlyEditing] = useState();
 
 	const taskNameInput = useRef(null);
 	const urgentInput = useRef(null);
@@ -26,9 +34,8 @@ function App() {
 		const currentID = currentTask.getAttribute("id");
 
 		tasks.forEach((task) => {
-			// @TODO: Set up editing task functionality
 			if (task.id === currentID) {
-				console.log(task);
+				setCurrentlyEditing(currentID);
 			}
 		});
 
@@ -38,16 +45,32 @@ function App() {
 	const formSubmitHandler = (e) => {
 		e.preventDefault();
 
-		// @TODO: Add form validation logic (for text input)
+		if (!taskNameInput.current.value) {
+			setTaskNameHasError(true);
+			return;
+		}
 
-		tasks.push({
-			id: uuid(),
-			title: taskNameInput.current.value,
-			urgent: urgentInput.current.checked,
-			important: importantInput.current.checked,
-		});
+		if (currentlyEditing) {
+			const itemIndex = tasks.findIndex(
+				(task) => task.id === currentlyEditing
+			);
+			tasks[itemIndex] = {
+				id: currentlyEditing,
+				title: taskNameInput.current.value,
+				urgent: urgentInput.current.checked,
+				important: importantInput.current.checked,
+			};
+		} else {
+			tasks.push({
+				id: uuid(),
+				title: taskNameInput.current.value,
+				urgent: urgentInput.current.checked,
+				important: importantInput.current.checked,
+			});
+		}
 
 		setModal(false);
+		setCurrentlyEditing(false);
 	};
 
 	return (
@@ -61,9 +84,13 @@ function App() {
 					<Modal modalToggle={toggleModal}>
 						<TaskForm
 							submitHandler={formSubmitHandler}
+							taskValues={taskValues}
+							setTaskValues={setTaskValues}
 							nameRef={taskNameInput}
 							urgentRef={urgentInput}
 							importantRef={importantInput}
+							taskNameError={taskNameHasError}
+							taskNameErrorUpdater={setTaskNameHasError}
 						/>
 					</Modal>,
 					document.getElementById("overlay")
