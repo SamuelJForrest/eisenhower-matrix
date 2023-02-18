@@ -23,20 +23,52 @@ function App() {
 	const urgentInput = useRef(null);
 	const importantInput = useRef(null);
 
+	const resetAllStates = () => {
+		setModal(false);
+		setCurrentlyEditing(false);
+		setTaskValues({
+			id: "",
+			title: "",
+			urgent: false,
+			important: false,
+		});
+	};
+
 	const toggleModal = () => {
 		setModal((prevState) => {
+			if (taskValues.title) {
+				setTaskValues({
+					id: "",
+					title: "",
+					urgent: false,
+					important: false,
+				});
+			}
 			return !prevState;
 		});
+	};
+
+	const deleteTask = () => {
+		const itemIndex = tasks.findIndex(
+			(task) => task.id === currentlyEditing
+		);
+		tasks.splice(itemIndex, 1);
+		resetAllStates();
 	};
 
 	const editingMode = (e) => {
 		const currentTask = e.target;
 		const currentID = currentTask.getAttribute("id");
 
-		tasks.forEach((task) => {
-			if (task.id === currentID) {
-				setCurrentlyEditing(currentID);
-			}
+		setCurrentlyEditing(currentID);
+
+		const itemIndex = tasks.findIndex((task) => task.id === currentID);
+		let { title, urgent, important } = tasks[itemIndex];
+		setTaskValues({
+			id: currentID,
+			title: title,
+			urgent: urgent,
+			important: important,
 		});
 
 		toggleModal();
@@ -61,16 +93,20 @@ function App() {
 				important: importantInput.current.checked,
 			};
 		} else {
-			tasks.push({
-				id: uuid(),
-				title: taskNameInput.current.value,
-				urgent: urgentInput.current.checked,
-				important: importantInput.current.checked,
+			setTasks((prevTasks) => {
+				return [
+					...prevTasks,
+					{
+						id: uuid(),
+						title: taskNameInput.current.value,
+						urgent: urgentInput.current.checked,
+						important: importantInput.current.checked,
+					},
+				];
 			});
 		}
 
-		setModal(false);
-		setCurrentlyEditing(false);
+		resetAllStates();
 	};
 
 	return (
@@ -91,6 +127,8 @@ function App() {
 							importantRef={importantInput}
 							taskNameError={taskNameHasError}
 							taskNameErrorUpdater={setTaskNameHasError}
+							currentlyEditing={currentlyEditing}
+							deleteTask={deleteTask}
 						/>
 					</Modal>,
 					document.getElementById("overlay")

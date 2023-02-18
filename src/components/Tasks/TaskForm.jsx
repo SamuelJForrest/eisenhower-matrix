@@ -5,6 +5,7 @@ import Input from "../UI/Input";
 
 const TaskForm = (props) => {
 	const {
+		currentlyEditing,
 		importantRef,
 		nameRef,
 		setTaskValues,
@@ -45,8 +46,6 @@ const TaskForm = (props) => {
 					};
 				});
 		}
-
-		console.log(event.target.value, event.target.checked);
 	};
 
 	return (
@@ -82,7 +81,20 @@ const TaskForm = (props) => {
 					errorMessageHandler={updateFormState}
 					updateForm={updateForm}
 				/>
-				<button className={styles["task-form-submit"]}>Submit</button>
+				<div className={styles["task-form-buttons"]}>
+					<button className={styles["task-form-submit"]}>
+						Submit
+					</button>
+					{currentlyEditing && (
+						<button
+							type="button"
+							className={styles["task-form-delete"]}
+							onClick={props.deleteTask}
+						>
+							Delete
+						</button>
+					)}
+				</div>
 			</form>
 		</Fragment>
 	);
