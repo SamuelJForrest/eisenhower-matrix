@@ -6,7 +6,7 @@ const Header = (props) => {
 			<h1>
 				The Eisenhower <br /> Matrix
 			</h1>
-			<button onClick={props.modalToggle}>+</button>
+			<button onClick={props.modalToggle}>Add task +</button>
 		</header>
 	);
 };
