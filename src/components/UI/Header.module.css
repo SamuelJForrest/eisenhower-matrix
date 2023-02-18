@@ -14,15 +14,16 @@ h1 {
 }
 
 header button {
-	font-size: 24px;
+	font-size: 20px;
+	border-radius: 4px;
 	padding: 10px 15px;
-	border: 2px solid #000;
-	background: rgba(0, 0, 0, 0);
+	background: #5ff11a;
+	border: none;
+	color: #fff;
 	transition: all 0.3s;
 }
 
 button:hover,
 button:focus {
-	background: rgba(0, 0, 0, 0.4);
-	color: #fff;
+	background: #48bc13;
 }
