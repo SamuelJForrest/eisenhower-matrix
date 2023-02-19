@@ -1,10 +1,13 @@
 header {
-	padding: 15px 30px;
+	padding: 20px 30px;
 	display: flex;
-	justify-content: space-between;
-	align-items: center;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
 	max-width: 100%;
-	margin-bottom: 32px;
+	margin-bottom: 48px;
+	box-shadow: 0 0 16px 4px rgba(0, 0, 0, 0.15);
+	background: #fff;
 }
 
 h1 {
@@ -13,17 +16,53 @@ h1 {
 	line-height: 1;
 }
 
-header button {
-	font-size: 20px;
+.header-buttons {
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: flex-start;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 16px;
+}
+
+.header-add-task {
+	font-size: 18px;
 	border-radius: 4px;
 	padding: 10px 15px;
-	background: #5ff11a;
+	font-weight: 900;
+	background: var(--dark-green);
 	border: none;
 	color: #fff;
 	transition: all 0.3s;
 }
 
-button:hover,
-button:focus {
-	background: #48bc13;
+.header-add-task:hover,
+.header-add-task:focus {
+	background: var(--darkest-green);
+}
+
+.header-clear-tasks {
+	color: var(--red);
+	border: none;
+	font-size: 16px;
+	background: transparent;
+}
+
+.header-clear-tasks:hover,
+.header-clear-tasks:focus {
+	text-decoration: underline;
+	text-underline-offset: 4px;
+}
+
+@media screen and (min-width: 992px) {
+	header {
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.header-buttons {
+		flex-direction: row;
+		gap: 32px;
+	}
 }

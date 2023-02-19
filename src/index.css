@@ -1,3 +1,18 @@
+:root {
+	--green: #98ff67;
+	--dark-green: #44d600;
+	--darkest-green: #39b100;
+	--blue: #a9f5ff;
+	--dark-blue: #2fc3d8;
+	--darkest-blue: #13afc5;
+	--orange: #ffcc80;
+	--dark-orange: #e19524;
+	--darkest-orange: #cd7f0a;
+	--red: #ff6565;
+	--dark-red: #c80000;
+	--darkest-red: #a50303;
+}
+
 body {
 	background: #f0f0f0;
 	font-family: "Inter", sans-serif;

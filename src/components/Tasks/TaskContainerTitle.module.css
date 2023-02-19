@@ -12,17 +12,17 @@
 }
 
 .green {
-	background: #5ff11a;
+	background: var(--dark-green);
 }
 
 .blue {
-	background: #69e7f9;
+	background: var(--dark-blue);
 }
 
 .orange {
-	background: #f2ae47;
+	background: var(--dark-orange);
 }
 
 .red {
-	background: #ff1e1e;
+	background: var(--dark-red);
 }

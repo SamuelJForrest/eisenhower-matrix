@@ -1,6 +1,5 @@
-import { Fragment, useState, useRef } from "react";
+import { Fragment, useState } from "react";
 import { createPortal } from "react-dom";
-import uuid from "react-uuid";
 
 import TaskGrid from "./components/Tasks/TaskGrid";
 import Header from "./components/UI/Header";
@@ -19,21 +18,6 @@ function App() {
 	});
 	const [currentlyEditing, setCurrentlyEditing] = useState();
 
-	const taskNameInput = useRef(null);
-	const urgentInput = useRef(null);
-	const importantInput = useRef(null);
-
-	const resetAllStates = () => {
-		setModal(false);
-		setCurrentlyEditing(false);
-		setTaskValues({
-			id: "",
-			title: "",
-			urgent: false,
-			important: false,
-		});
-	};
-
 	const toggleModal = () => {
 		setModal((prevState) => {
 			if (taskValues.title) {
@@ -48,12 +32,8 @@ function App() {
 		});
 	};
 
-	const deleteTask = () => {
-		const itemIndex = tasks.findIndex(
-			(task) => task.id === currentlyEditing
-		);
-		tasks.splice(itemIndex, 1);
-		resetAllStates();
+	const clearTasks = () => {
+		setTasks([]);
 	};
 
 	const editingMode = (e) => {
@@ -74,44 +54,13 @@ function App() {
 		toggleModal();
 	};
 
-	const formSubmitHandler = (e) => {
-		e.preventDefault();
-
-		if (!taskNameInput.current.value) {
-			setTaskNameHasError(true);
-			return;
-		}
-
-		if (currentlyEditing) {
-			const itemIndex = tasks.findIndex(
-				(task) => task.id === currentlyEditing
-			);
-			tasks[itemIndex] = {
-				id: currentlyEditing,
-				title: taskNameInput.current.value,
-				urgent: urgentInput.current.checked,
-				important: importantInput.current.checked,
-			};
-		} else {
-			setTasks((prevTasks) => {
-				return [
-					...prevTasks,
-					{
-						id: uuid(),
-						title: taskNameInput.current.value,
-						urgent: urgentInput.current.checked,
-						important: importantInput.current.checked,
-					},
-				];
-			});
-		}
-
-		resetAllStates();
-	};
-
 	return (
 		<Fragment>
-			<Header modalToggle={toggleModal} />
+			<Header
+				modalToggle={toggleModal}
+				clearTasks={clearTasks}
+				taskList={tasks}
+			/>
 			<main>
 				<TaskGrid taskList={tasks} editingMode={editingMode} />
 			</main>
@@ -119,16 +68,15 @@ function App() {
 				createPortal(
 					<Modal modalToggle={toggleModal}>
 						<TaskForm
-							submitHandler={formSubmitHandler}
-							taskValues={taskValues}
+							currentlyEditing={currentlyEditing}
+							setCurrentlyEditing={setCurrentlyEditing}
+							setTasks={setTasks}
 							setTaskValues={setTaskValues}
-							nameRef={taskNameInput}
-							urgentRef={urgentInput}
-							importantRef={importantInput}
+							tasks={tasks}
 							taskNameError={taskNameHasError}
 							taskNameErrorUpdater={setTaskNameHasError}
-							currentlyEditing={currentlyEditing}
-							deleteTask={deleteTask}
+							taskValues={taskValues}
+							setModal={setModal}
 						/>
 					</Modal>,
 					document.getElementById("overlay")

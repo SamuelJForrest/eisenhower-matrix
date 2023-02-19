@@ -6,7 +6,7 @@ const Input = (props) => {
 	return (
 		<Fragment>
 			<label className={styles["form-label"]} htmlFor={props.name}>
-				{props.name}
+				{props.label}
 			</label>
 			<input
 				onChange={props.errorMessageHandler}

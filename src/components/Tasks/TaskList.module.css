@@ -24,37 +24,37 @@
 }
 
 .green button {
-	background: #5ff11a;
+	background: var(--dark-green);
 }
 
 .green button:hover,
 .green button:focus {
-	background: #48bc13;
+	background: var(--darkest-green);
 }
 
 .blue button {
-	background: #69e7f9;
+	background: var(--dark-blue);
 }
 
 .blue button:hover,
 .blue button:focus {
-	background: #52b4c4;
+	background: var(--darkest-blue);
 }
 
 .orange button {
-	background: #f2ae47;
+	background: var(--dark-orange);
 }
 
 .orange button:hover,
 .orange button:focus {
-	background: #b98536;
+	background: var(--darkest-orange);
 }
 
 .red button {
-	background: #ff1e1e;
+	background: var(--dark-red);
 }
 
 .red button:hover,
 .red button:focus {
-	background: #cf1717;
+	background: var(--darkest-red);
 }
