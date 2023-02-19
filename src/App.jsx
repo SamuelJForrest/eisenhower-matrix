@@ -20,7 +20,7 @@ function App() {
 
 	const toggleModal = () => {
 		setModal((prevState) => {
-			if (taskValues.title) {
+			if (taskValues.title || taskValues.urgent || taskValues.important) {
 				setTaskValues({
 					id: "",
 					title: "",
@@ -28,6 +28,11 @@ function App() {
 					important: false,
 				});
 			}
+
+			if (currentlyEditing) {
+				setCurrentlyEditing(false);
+			}
+
 			return !prevState;
 		});
 	};
